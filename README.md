@@ -1,2 +1,0 @@
-# CurrencyConverter
-Python Currency Converter
