@@ -65,11 +65,21 @@ def Main():
 
     convRate = 0
     if choise == 0:
-    	convRate = inputFloat(f"Enter {currency[convFrom]} cost in {currency[convTo]}: ")
+    	while True:
+    		convRate = inputFloat(f"Enter {currency[convFrom]} cost in {currency[convTo]}: ")
+    		if convRate > 0:
+    			break
+    		else:
+    			print("Invalid input")
     	convResult = convValue * convRate
 
     elif choise == 1:
-    	convRate = inputFloat(f"Enter {currency[convTo]} cost in {currency[convFrom]}: ")
+    	while True:
+    		convRate = inputFloat(f"Enter {currency[convTo]} cost in {currency[convFrom]}: ")
+    		if convRate > 0:
+    			break
+    		else:
+    			print("Invalid input")
     	convResult = convValue / convRate
 
     print(str(round(convValue, 2)), currency[convFrom], "=", str(round(convResult, 2)), currency[convTo])
