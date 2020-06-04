@@ -3,8 +3,8 @@
 def inputInt(prompt = ""):
     while True:
         try:
-            var = int(input(prompt))
-            return var
+            res = int(input(prompt))
+            return res
         except:
             print("Invalid input")
 
@@ -12,8 +12,8 @@ def inputInt(prompt = ""):
 def inputFloat(prompt = ""):
     while True:
         try:
-            var = float(input(prompt))
-            return var
+            res = float(input(prompt))
+            return res
         except:
             print("Invalid input")
 
@@ -52,22 +52,27 @@ def Main():
 
     convValue = 0
     while True:
-    	convValue = inputFloat("Enter amoun in {0}: ".format(currency[convFrom]))
+    	convValue = inputFloat(f"Enter amoun in {currency[convFrom]}: ")
     	if convValue > 0:
     		break
     	else:
     		print("Invalid input")
 
-    rate = 0
-    while True:
-    	rate = inputFloat("Enter {0} cost in {1}: ".format(currency[convFrom], currency[convTo]))
-    	if rate > 0:
-    		break
-    	else:
-    		print("Invalid input")
-    
-    print(str(round(convValue, 2)), currency[convFrom], "=", str(round(convValue * rate, 2)), currency[convTo])
 
+    print("\nChoose an input option: ")
+    choise = Menu([f"Enter {currency[convFrom]} cost in {currency[convTo]}: ", f"Enter {currency[convTo]} cost in {currency[convFrom]}: "])
+    print()
+
+    convRate = 0
+    if choise == 0:
+    	convRate = inputFloat(f"Enter {currency[convFrom]} cost in {currency[convTo]}: ")
+    	convResult = convValue * convRate
+
+    elif choise == 1:
+    	convRate = inputFloat(f"Enter {currency[convTo]} cost in {currency[convFrom]}: ")
+    	convResult = convValue / convRate
+
+    print(str(round(convValue, 2)), currency[convFrom], "=", str(round(convResult, 2)), currency[convTo])
 
 
 Main()
