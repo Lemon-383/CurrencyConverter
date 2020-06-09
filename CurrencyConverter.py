@@ -42,6 +42,8 @@ def Main():
     print("Convert to:")
     convTo = Menu(list(currency[0: convFrom]) +
                   list(currency[convFrom + 1: len(currency)]))
+    if convTo >= convFrom:
+    	convTo += 1
     print("\n" * 2)
 
     convValue = 0
