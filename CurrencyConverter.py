@@ -32,6 +32,52 @@ def Menu(menuItems):
             print("Invalid input")
 
 
+def CurrenciesSelection(currency):
+    menu = list(currency)
+    selected = list()
+
+    while True:
+        choise = Menu(menu)
+
+        if len(selected) == 0:
+            menu.insert(0, "Convert")
+            choise += 1
+
+        if choise == 0:
+            return selected
+        else:
+            selected.append(menu[choise])
+            menu.remove(menu[choise])
+
+            if len(menu) == 1:
+                return selected
+        print("\n" * 2)
+
+
+def EnterCurrRate(selCurr, srcCurr):
+    selCurrRate = list()
+
+    i = 0
+    while i < len(selCurr):
+        while True:
+            rate = inputFloat(f"Enter {srcCurr} cost in {selCurr[i]}: ")
+            if rate > 0:
+                selCurrRate.append(rate)
+                break
+            else:
+                print("Invalid input")
+        i += 1
+    return selCurrRate
+
+
+def Convert(srcCurr, selCurr, selCurrRate, convValue):
+    i = 0
+    while i < len(selCurr):
+        convResult = convValue * selCurrRate[i]
+        print(str(round(convValue, 2)), srcCurr, "=", str(round(convResult, 2)), selCurr[i])
+        i += 1
+
+
 def Main():
     currency = ["USD", "EUR", "UAH", "PLN", "BYR", "CNY", "RUB"]
 
@@ -40,10 +86,8 @@ def Main():
     print("\n" * 2)
 
     print("Convert to:")
-    convTo = Menu(list(currency[0: convFrom]) +
+    selCurr = CurrenciesSelection(list(currency[0: convFrom]) +
                   list(currency[convFrom + 1: len(currency)]))
-    if convTo >= convFrom:
-    	convTo += 1
     print("\n" * 2)
 
     convValue = 0
@@ -54,32 +98,9 @@ def Main():
         else:
             print("Invalid input")
 
-
-    print("\nChoose an input option: ")
-    choise = Menu([f"Enter {currency[convFrom]} cost in {currency[convTo]}: ",
-                   f"Enter {currency[convTo]} cost in {currency[convFrom]}: "])
-    print()
-
-    convRate = 0
-    if choise == 0:
-        while True:
-            convRate = inputFloat(f"Enter {currency[convFrom]} cost in {currency[convTo]}: ")
-            if convRate > 0:
-                break
-            else:
-                print("Invalid input")
-        convResult = convValue * convRate
-
-    elif choise == 1:
-        while True:
-            convRate = inputFloat(f"Enter {currency[convTo]} cost in {currency[convFrom]}: ")
-            if convRate > 0:
-                break
-            else:
-                print("Invalid input")
-        convResult = convValue / convRate
-
-    print(str(round(convValue, 2)), currency[convFrom], "=", str(round(convResult, 2)), currency[convTo])
+    selCurrRate = EnterCurrRate(selCurr, currency[convFrom])
+    print("\n\n")
+    Convert(currency[convFrom], selCurr, selCurrRate, convValue)
 
 
 Main()
