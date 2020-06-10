@@ -55,25 +55,25 @@ def CurrenciesSelection(currency):
 
 
 def EnterCurrRate(selCurr, srcCurr):
-    selCurrRate = list()
+    currRate = list()
 
     i = 0
     while i < len(selCurr):
         while True:
             rate = inputFloat(f"Enter {srcCurr} cost in {selCurr[i]}: ")
             if rate > 0:
-                selCurrRate.append(rate)
+                currRate.append(rate)
                 break
             else:
                 print("Invalid input")
         i += 1
-    return selCurrRate
+    return currRate
 
 
-def Convert(srcCurr, selCurr, selCurrRate, convValue):
+def Convert(srcCurr, selCurr, currRate, convValue):
     i = 0
     while i < len(selCurr):
-        convResult = convValue * selCurrRate[i]
+        convResult = convValue * currRate[i]
         print(str(round(convValue, 2)), srcCurr, "=", str(round(convResult, 2)), selCurr[i])
         i += 1
 
@@ -98,9 +98,9 @@ def Main():
         else:
             print("Invalid input")
 
-    selCurrRate = EnterCurrRate(selCurr, currency[convFrom])
+    currRate = EnterCurrRate(selCurr, currency[convFrom])
     print("\n\n")
-    Convert(currency[convFrom], selCurr, selCurrRate, convValue)
+    Convert(currency[convFrom], selCurr, currRate, convValue)
 
 
 Main()
